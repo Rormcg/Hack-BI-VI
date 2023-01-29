@@ -10,8 +10,6 @@ import java.awt.Font;
 import java.awt.geom.Point2D;
 
 public class Flight {
-   public final double SPEED = 0.5;
-   
    private boolean showName;
    private Point2D.Double position;
    private Location loc1;
@@ -30,12 +28,12 @@ public class Flight {
       position = new Point2D.Double(loc1.getPosition().x, loc1.getPosition().y);
       velocity = new Point2D.Double((loc2.getPosition().x - loc1.getPosition().x), loc2.getPosition().y - loc1.getPosition().y);
       velocity.setLocation(velocity.x / Math.sqrt(velocity.x * velocity.x + velocity.y * velocity.y), velocity.y / Math.sqrt(velocity.x * velocity.x + velocity.y * velocity.y));
-      velocity.setLocation(velocity.x * SPEED, velocity.y * SPEED);
+      velocity.setLocation(velocity.x, velocity.y);
       size = 16;
       name = loc1.getName() + " - " + loc2.getName();
       
       try {
-      plane = ImageIO.read(new File("C:\\Users\\rorym\\OneDrive - bishopireton.org\\Documents\\Git\\Hack-BI-VI\\src\\plane.png"));
+      plane = ImageIO.read(new File("src/plane.png"));
       } catch (IOException e) {}
    }
    
@@ -48,7 +46,7 @@ public class Flight {
          while(traveler.x != loc2.getPosition().x) {
             count ++;
             g.setColor(new Color(52, 194, 13));
-            traveler2.setLocation(traveler.x + (velocity.x / SPEED * 30), traveler.y + (velocity.y / SPEED * 30));
+            traveler2.setLocation(traveler.x + (velocity.x * 30), traveler.y + (velocity.y * 30));
             if(Math.sqrt(Math.pow(traveler.x - loc2.getPosition().x, 2) + Math.pow(traveler.y - loc2.getPosition().y, 2)) > 
             Math.sqrt(Math.pow(traveler.x - traveler2.x, 2) + Math.pow(traveler.y - traveler2.y, 2))) {
                if(count % 2 == 0) {
@@ -66,13 +64,13 @@ public class Flight {
       }
       
       Graphics2D g2D = (Graphics2D) g;
-      g2D.translate((int)(position.x + size * 1.1), (int)(position.y - size * 0.3));
+      g2D.translate((int)(position.x), (int)(position.y));
       g2D.rotate(getDirection(velocity.x, velocity.y));
       
-      g.drawImage(plane, (int)(-size * 0.5), (int)(-size * 0.5), size * 3, size * 3, null);
+      g.drawImage(plane, (int)(-size * 1.4), (int)(-size * 1.2), size * 3, size * 3, null);
       
       g2D.rotate(-getDirection(velocity.x, velocity.y));
-      g2D.translate(-(int)(position.x + size * 1.1), -(int)(position.y - size * 0.3));
+      g2D.translate(-(int)(position.x), -(int)(position.y));
       //g.setColor(Color.GREEN);
       //g.fillOval((int)(position.x - 8), (int)(position.y - 8), size, size);
       
@@ -87,10 +85,10 @@ public class Flight {
       }
    }
    
-   public void update() {
+   public void update(double speed) {
       if(Math.sqrt(Math.pow(position.x - loc2.getPosition().x, 2) + Math.pow(position.y - loc2.getPosition().y, 2)) > 
-      Math.sqrt(Math.pow(position.x - position.x - velocity.x, 2) + Math.pow(position.y - position.y - velocity.y, 2))) {
-         position.setLocation(position.x + velocity.x, position.y + velocity.y);
+      Math.sqrt(Math.pow(position.x - position.x - velocity.x * speed, 2) + Math.pow(position.y - position.y - velocity.y * speed, 2))) {
+         position.setLocation(position.x + velocity.x * speed, position.y + velocity.y * speed);
       } else {
          flightEnded = true;
       }
@@ -114,6 +112,10 @@ public class Flight {
    
    public boolean getShowName() {
       return showName;
+   }
+
+   public boolean getFlightEnded() {
+      return flightEnded;
    }
    
    private double getDirection(double x, double y) {
