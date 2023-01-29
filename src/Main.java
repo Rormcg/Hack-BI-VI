@@ -44,25 +44,17 @@ public class Main extends JComponent implements ActionListener, MouseListener{
       screenWidth = 1000;
       screenHeight = 650;
       paused = false;
-      speed = 0.1;
+      speed = 0.15;
       
       try {
       background = ImageIO.read(new File("src/map2.png"));
-      } catch (IOException e) {}
       
-      try {
       subtract = ImageIO.read(new File("src/subtraction.png"));
-      } catch (IOException e) {}
       
-      try {
       add = ImageIO.read(new File("src/add-button.png"));
-      } catch (IOException e) {}
       
-      try {
       pause = ImageIO.read(new File("src/pause.png"));
-      } catch (IOException e) {}
       
-      try {
       play = ImageIO.read(new File("src/play.png"));
       } catch (IOException e) {}
       
