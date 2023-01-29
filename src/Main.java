@@ -75,7 +75,7 @@ public class Main extends JComponent implements ActionListener, MouseListener{
       new Location(820, 565, "Miami"), new Location(560, 170, "Minneapolis"), new Location(440, 480, "Austin"),
       new Location(100, 360, "Los Angeles"), new Location(120, 60, "Seattle"), new Location(640, 240, "Chicago"),
       new Location(350, 280, "Denver"), new Location(730, 400, "Atlanta"), new Location(910, 180, "Boston"),
-      new Location(230, 390, "Pheonix"), new Location(250, 240, "Salt Lake City"), 
+      new Location(230, 390, "Phoenix"), new Location(250, 240, "Salt Lake City"), 
       new Location(60, 240, "San Francisco"), new Location(610, 485, "New Orleans")};
       flights = new ArrayList<Flight>();
       flights.add(new Flight(locations[5], locations[3]));
